@@ -99,8 +99,6 @@ public class EntityValidatorImpl implements EntityValidator
         // must have a default no-argument constructor
         try
         {
-            clazz.getConstructor();
-
             if(!Modifier.isAbstract(clazz.getModifiers())){
                 clazz.getConstructor();
             }
