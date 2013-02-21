@@ -91,7 +91,8 @@ public class TableProcessor extends AbstractEntityFieldProcessor
      * @param clazz
      *            the clazz
      */
-    private <X extends Class, T extends Object> void populateMetadata(EntityMetadata metadata, Class<X> clazz)
+    private <X extends Class, T extends Object> void populateMetadata(EntityMetadata metadata, Class<X> clazz,
+            Map puProperties)
     {
         Table table = clazz.getAnnotation(Table.class);
         boolean isEmbeddable = false;
