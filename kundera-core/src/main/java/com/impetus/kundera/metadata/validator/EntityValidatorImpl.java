@@ -24,6 +24,7 @@ import org.apache.commons.logging.LogFactory;
 
 import javax.persistence.*;
 import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -99,6 +100,10 @@ public class EntityValidatorImpl implements EntityValidator
         try
         {
             clazz.getConstructor();
+
+            if(!Modifier.isAbstract(clazz.getModifiers())){
+                clazz.getConstructor();
+            }
         }
         catch (NoSuchMethodException nsme)
         {
