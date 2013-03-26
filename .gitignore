@@ -4,4 +4,4 @@
 *.ipr
 target/
 test-output/
-
+.idea

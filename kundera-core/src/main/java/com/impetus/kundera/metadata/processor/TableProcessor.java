@@ -50,6 +50,8 @@ import com.impetus.kundera.metadata.processor.relation.RelationMetadataProcessor
 import com.impetus.kundera.metadata.validator.EntityValidatorImpl;
 import com.impetus.kundera.metadata.validator.InvalidEntityDefinitionException;
 
+import static com.impetus.kundera.utils.ReflectUtils.collectFieldsInClassHierarchy;
+
 /**
  * Metadata processor class for persistent entities.
  * 
@@ -123,6 +125,7 @@ public class TableProcessor extends AbstractEntityFieldProcessor
         }
         MetadataUtils.setSchemaAndPersistenceUnit(metadata, schemaStr, puProperties);
 
+        // metadata.setType(com.impetus.kundera.metadata.model.EntityMetadata.Type.COLUMN_FAMILY);
         // scan for fields
 
         // process for metamodelImpl
@@ -133,7 +136,7 @@ public class TableProcessor extends AbstractEntityFieldProcessor
                     .getMetaModelBuilder(metadata.getPersistenceUnit());
             metaModelBuilder.process(clazz);
 
-            for (Field f : clazz.getDeclaredFields())
+            for (Field f : collectFieldsInClassHierarchy(clazz, MappedSuperclass.class, Inheritance.class))
             {
                 if (f != null && !Modifier.isStatic(f.getModifiers()) && !Modifier.isTransient(f.getModifiers())
                         && !f.isAnnotationPresent(Transient.class))
